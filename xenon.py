@@ -48,12 +48,19 @@ def compare_questions(questions1, questions2):
 
 
 def calculate_insights(common_questions, flattened_questions1, flattened_questions2, num_top_questions=10):
+    if not common_questions:
+        print("No common questions found.")
+        return
+
     top_questions = common_questions.most_common(num_top_questions)
     total_questions = sum(common_questions.values())
-    percentage_common = (total_questions / (len(flattened_questions1) + len(flattened_questions2))) * 100
 
-    print(f"Total common questions: {total_questions}")
-    print(f"Percentage of common questions: {percentage_common:.2f}%")
+    if len(flattened_questions1) + len(flattened_questions2) > 0:
+        percentage_common = (total_questions / (len(flattened_questions1) + len(flattened_questions2))) * 100
+        print(f"Total common questions: {total_questions}")
+        print(f"Percentage of common questions: {percentage_common:.2f}%")
+    else:
+        print("No questions found.")
 
     print("Top repeated questions:")
     for question, count in top_questions:
@@ -72,7 +79,7 @@ def calculate_insights(common_questions, flattened_questions1, flattened_questio
 def main():
     # Example usage: Extract text from two PDFs
     pdf1_text = extract_text_from_pdf('paper1.pdf')
-    pdf2_text = extract_text_from_pdf('paper2.pdf')
+    pdf2_text = extract_text_from_pdf('paper3.pdf')
 
     # Example usage: Preprocess the text from two PDFs
     pdf1_sentences = preprocess_text(pdf1_text)
